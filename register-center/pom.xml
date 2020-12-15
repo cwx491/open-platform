@@ -10,4 +10,8 @@
     <artifactId>register-center</artifactId>
     <name>register-center</name>
     <description>register-center project for Spring Boot</description>
+
+    <modules>
+        <module>eureka-server</module>
+    </modules>
 </project>
