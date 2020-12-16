@@ -19,6 +19,8 @@
     <modules>
         <module>register-center</module>
         <module>monitor-center</module>
+        <module>workflow-center</module>
+        <module>task-center</module>
     </modules>
 
     <dependencyManagement>
