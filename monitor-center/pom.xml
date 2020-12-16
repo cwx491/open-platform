@@ -7,11 +7,12 @@
         <artifactId>open-platform</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>register-center</artifactId>
-    <name>register-center</name>
-    <description>注册中心</description>
+    <artifactId>monitor-center</artifactId>
+    <name>monitor-center</name>
+    <description>监控中心</description>
     <packaging>pom</packaging>
+
     <modules>
-        <module>eureka-server</module>
+        <module>springboot-admin</module>
     </modules>
 </project>

@@ -4,15 +4,19 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.alliance.radish</groupId>
-        <artifactId>register-center</artifactId>
+        <artifactId>monitor-center</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>eureka-server</artifactId>
-    <name>eureka-server</name>
-    <description>eureka 注册中心</description>
+    <artifactId>springboot-admin</artifactId>
+    <name>springboot-admin</name>
+    <description>springboot-admin 监控</description>
     <packaging>jar</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -20,17 +24,24 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- 安全认证 -->
+        <!-- 服务发现注册方式-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-security</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <!-- Spring Boot Admin 服务端依赖包 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <!-- 开启认证 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
 

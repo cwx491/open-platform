@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: springboot-admin
+  security:
+    user:
+      name: luobo
+      password: luobo123
+server:
+  port: 9001
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://luobo:luobo123@localhost:1111/eureka
+    registry-fetch-interval-seconds: 5
+    instance-info-replication-interval-seconds: 10
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    #instance-id: ${spring.application.name}:${docker.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 10  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+    lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
+    # 此处的metadata-map 一定要配置，否则会报错；作用：将用户验证信息同步到Eureka服务器，这样其他服务实例就可以通过这些信息访问Admin服务端了
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
