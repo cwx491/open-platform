@@ -12,5 +12,7 @@
     <description>任务调度中心</description>
     <packaging>pom</packaging>
 
-
+    <modules>
+        <module>xxl-job</module>
+    </modules>
 </project>

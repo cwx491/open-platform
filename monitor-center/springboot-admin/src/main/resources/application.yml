@@ -12,6 +12,7 @@ management:
   endpoints:
     web:
       exposure:
+        ### 在YAML中有特殊的含义，所以如果要包含(或排除)所有端点，请务必添加引号
         include: "*"
   endpoint:
     health:

@@ -23,22 +23,19 @@ management:
       show-details: always
 eureka:
   server:
-    wait-time-in-ms-when-sync-empty: 0   #在eureka服务器获取不到集群里对等服务器上的实例时，需要等待的时间，单机默认0
-    enable-self-preservation: false    #关闭服务器自我保护，客户端心跳检测15分钟内错误达到80%服务会保护，导致别人还认为是好用的服务
-    eviction-interval-timer-in-ms: 60000 #清理间隔（单位毫秒，默认是60*1000）5秒将客户端剔除的服务在服务注册列表中剔除#
-    response-cache-update-interval-ms: 3000  #eureka server刷新readCacheMap的时间，注意，client读取的是readCacheMap，这个时间决定了多久会把readWriteCacheMap的缓存更新到readCacheMap上,默认30s
+    eviction-interval-timer-in-ms: 60000 #清理间隔（单位毫秒，默认是60*1000）60秒将客户端剔除的服务在服务注册列表中剔除#
+    response-cache-update-interval-ms: 3000  #eureka server服务端缓存,默认30s
     response-cache-auto-expiration-in-seconds: 180   #eureka server缓存readWriteCacheMap失效时间，这个只有在这个时间过去后缓存才会失效，失效前不会更新，过期后从registry重新读取注册服务信息，registry是一个ConcurrentHashMap。
-    renewal-percent-threshold: 0.49  #  指定每分钟需要收到的续约次数的阈值，默认值就是：0.85
+    renewal-percent-threshold: 0.85  #  指定每分钟需要收到的续约次数的阈值，默认值就是：0.85
   client:
     register-with-eureka: false  #false:不作为一个客户端注册到注册中心,是否将自身的实例信息注册到eureka服务器,
     fetch-registry: false      #为true时，可以启动，但报异常：Cannot execute request on any known server ，是否从eureka服务端获取注册信息，消费者需要配置true
     instance-info-replication-interval-seconds: 10
-    registry-fetch-interval-seconds: 30  #从eureka服务端获取注册信息的间隔时间
+    registry-fetch-interval-seconds: 30  #指示从eureka服务器获取注册表信息的频率（s）
     service-url:
-      defaultZone: http://luobo:luobo123@localhost:1111/eureka
+      defaultZone: http://luobo:luobo123@${spring.cloud.client.ip-address}:1111/eureka
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
     lease-renewal-interval-in-seconds: 10    # 续约更新时间间隔（默认30秒），eureka客户端向服务端发送心跳的时间间隔
     lease-expiration-duration-in-seconds: 30 # 续约到期时间（默认90秒）
-    appname: eureka-server
