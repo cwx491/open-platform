@@ -1,12 +1,22 @@
 spring:
   application:
-    name: springboot-admin
-  security:
-    user:
-      name: luobo
-      password: luobo123
+    name: springcloud-gateway
+  main:
+    ### spring.main.allow-bean-definition-overriding=true就是解决bean重复定义的。设置为true时，后定义的bean会覆盖之前定义的相同名称的bean。
+    allow-bean-definition-overriding: true
   lifecycle:
     timeout-per-shutdown-phase: 30s
+  cloud:
+    gateway:
+      httpclient:
+        ssl:
+          ### 注：uri为https的请求需要配置证书，可通过设置spring.cloud.gateway.httpclient.ssl.use-insecure-trust-manager=true关闭ssl认证，默认为false
+          use-insecure-trust-manager: true
+
+server:
+  port: 6666
+  shutdown: graceful
+
 ### 暴露端点
 management:
   endpoints:
@@ -17,9 +27,7 @@ management:
   endpoint:
     health:
       show-details: always
-server:
-  port: 9999
-  shutdown: graceful
+
 eureka:
   client:
     serviceUrl:

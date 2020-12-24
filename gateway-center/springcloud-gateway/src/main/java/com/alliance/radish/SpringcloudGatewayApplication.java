@@ -1,18 +1,15 @@
-package com.xxl.job.executor;
+package com.alliance.radish;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-/**
- * @author xuxueli 2018-10-28 00:38:13
- */
 @EnableDiscoveryClient
 @SpringBootApplication
-public class XxlJobExecutorApplication {
+public class SpringcloudGatewayApplication {
 
-	public static void main(String[] args) {
-        SpringApplication.run(XxlJobExecutorApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringcloudGatewayApplication.class, args);
+    }
 
 }

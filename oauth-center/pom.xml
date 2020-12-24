@@ -7,13 +7,14 @@
         <artifactId>open-platform</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>gateway-center</artifactId>
-    <name>gateway-center</name>
-    <description>网关中心</description>
+    <groupId>com.alliance.radish</groupId>
+    <artifactId>oauth-center</artifactId>
+    <name>认证中心</name>
+    <description>Demo project for Spring Boot</description>
     <packaging>pom</packaging>
 
     <modules>
-        <module>springcloud-gateway</module>
+        <module>authorize-server</module>
+        <module>resource-server</module>
     </modules>
-
 </project>
