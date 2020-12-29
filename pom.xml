@@ -27,6 +27,8 @@
         <module>workflow-center</module>
         <module>task-center</module>
         <module>gateway-center</module>
+        <module>common-center</module>
+        <module>oauth-center</module>
     </modules>
 
     <dependencyManagement>
