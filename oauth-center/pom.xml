@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.alliance.radish</groupId>
     <artifactId>oauth-center</artifactId>
-    <name>认证中心</name>
+    <name>oauth-center</name>
     <description>Demo project for Spring Boot</description>
     <packaging>pom</packaging>
 

@@ -7,8 +7,12 @@
         <artifactId>open-platform</artifactId>
         <version>1.0.0</version>
     </parent>
+    <packaging>pom</packaging>
     <artifactId>common-center</artifactId>
     <name>common-center</name>
     <description>公共模块</description>
+    <modules>
+        <module>log-spring-boot-starter</module>
+    </modules>
 
 </project>

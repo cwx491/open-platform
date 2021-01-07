@@ -2,14 +2,11 @@ package com.alliance.radish.config;
 
 import com.alliance.radish.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-//import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -22,14 +19,16 @@ import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-//import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -54,9 +53,16 @@ public class OauthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
-    public static void main(String[] args) {
-        System.out.println(new BCryptPasswordEncoder().encode("123456"));
-    }
+    /**
+     * 整合JWT
+     */
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+    /**
+     * JWT
+     */
+    @Autowired
+    private TokenEnhancer jwtTokenEnhancer;
 
     //token保存策略
     @Bean
@@ -139,6 +145,15 @@ public class OauthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .authenticationManager(authenticationManager)// 开启密码验证，来源于 WebSecurityConfigurerAdapter
                 .authorizationCodeServices(authorizationCodeServices())
                 .tokenStore(tokenStore())
+//                .accessTokenConverter(jwtAccessTokenConverter)// JWT增强
                 .userDetailsService(userService);// 读取验证用户的信息
+        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+        List<TokenEnhancer> enhancerList = new ArrayList<>();
+        enhancerList.add(jwtTokenEnhancer);
+        enhancerList.add(jwtAccessTokenConverter);
+        enhancerChain.setTokenEnhancers(enhancerList);
+        endpoints
+                .tokenEnhancer(enhancerChain)
+                .accessTokenConverter(jwtAccessTokenConverter);
     }
 }

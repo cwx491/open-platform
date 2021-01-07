@@ -11,7 +11,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class SpringbootAdminApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootAdminApplication.class, args);
+        try{
+            SpringApplication.run(SpringbootAdminApplication.class, args);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

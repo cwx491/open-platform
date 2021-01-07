@@ -9,7 +9,7 @@ spring:
     ### 停机宽限时间
     timeout-per-shutdown-phase: 30s
 server:
-  port: 1111
+  port: 1234
   ### 优雅停机
   shutdown: graceful
 ### 暴露端点

@@ -6,15 +6,47 @@ spring:
     allow-bean-definition-overriding: true
   lifecycle:
     timeout-per-shutdown-phase: 30s
+  sleuth:
+    sampler: # 样本配置
+      # 百分比，默认为0.1
+      probability: 1.0
+      # 速率，每秒追踪30次
+      rate: 30
+  zipkin:
+    base-url: http://localhost:9412
+    sender:
+      type: rabbit
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: luobo
+    password: luobo123
   cloud:
     gateway:
       httpclient:
         ssl:
           ### 注：uri为https的请求需要配置证书，可通过设置spring.cloud.gateway.httpclient.ssl.use-insecure-trust-manager=true关闭ssl认证，默认为false
           use-insecure-trust-manager: true
-
+      discovery:
+        locator:
+          lower-case-service-id: true # 兼容Zuul 升级到 Spring Cloud Gateway；服务名称小写配置, 默认为false
+          enabled: true # 默认会为所有服务都进行转发操作
+      routes:
+      - id: eureka-server
+        #  lb 代表从注册中心获取服务 后面接的就是你需要转发到的服务名称，这个服务名称必须跟 Eureka 中的对应，否则会找不到服务
+        uri: lb://eureka-server
+        predicates:
+          - Path=/eureka-server/**
+        filters:
+          - StripPrefix=1
+      - id: resource-server
+        uri: lb://resource-server
+        predicates:
+          - Path=/resource-server/**
+        filters:
+          - StripPrefix=1
 server:
-  port: 6666
+  port: 3234
   shutdown: graceful
 
 ### 暴露端点
@@ -31,15 +63,14 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://luobo:luobo123@localhost:1111/eureka
+      defaultZone: http://luobo:luobo123@localhost:1234/eureka
     registry-fetch-interval-seconds: 30
     instance-info-replication-interval-seconds: 30
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
-    lease-renewal-interval-in-seconds: 10  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
-    lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
-    # 此处的metadata-map 一定要配置，否则会报错；作用：将用户验证信息同步到Eureka服务器，这样其他服务实例就可以通过这些信息访问Admin服务端了
-    metadata-map:
-      user.name: ${spring.security.user.name}
-      user.password: ${spring.security.user.password}
+    lease-renewal-interval-in-seconds: 30  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+    lease-expiration-duration-in-seconds: 90 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
+logging:
+  level:
+    root: info
