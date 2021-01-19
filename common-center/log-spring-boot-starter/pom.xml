@@ -18,6 +18,7 @@
     </properties>
 
     <dependencies>
+        <!-- structlog4j的核心思想就是将日志已key-value的方式呈现，方便日期切分。 -->
         <dependency>
             <groupId>structlog4j</groupId>
             <artifactId>structlog4j-api</artifactId>
@@ -54,6 +55,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
+        <!-- 链路跟踪 -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-sleuth-core</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

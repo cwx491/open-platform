@@ -68,6 +68,12 @@
 			<artifactId>xxl-job-core</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<!-- 日志处理中心 -->
+		<dependency>
+			<groupId>com.alliance.radish</groupId>
+			<artifactId>log-spring-boot-starter</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

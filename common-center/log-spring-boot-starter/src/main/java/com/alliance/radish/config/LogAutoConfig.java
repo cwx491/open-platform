@@ -33,9 +33,9 @@ public class LogAutoConfig implements WebMvcConfigurer{
     public void init(){
         StructLog4J.setFormatter(JsonFormatter.getInstance());
         StructLog4J.setMandatoryContextSupplier(()-> new Object[]{
-                "host",	IPUtils.getHostIp(),
-                "appName",appName ,
-                "logTime", SystemClock.nowDate()
+//                "host",	IPUtils.getHostIp(),
+                "APP_NAME",appName
+//                "logTime", SystemClock.nowDate()
         });
     }
     @Override

@@ -29,6 +29,7 @@
         <module>gateway-center</module>
         <module>common-center</module>
         <module>oauth-center</module>
+        <module>test-center</module>
     </modules>
 
     <dependencyManagement>

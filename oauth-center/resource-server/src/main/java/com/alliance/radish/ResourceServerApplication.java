@@ -1,5 +1,6 @@
 package com.alliance.radish;
 
+import com.alliance.radish.annotation.EnableLogging;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * client_secret：客户端秘钥
  * 因此，准确来说，授权服务器对两种OAuth2.0中的两个角色进行认证授权，分别是资源拥有者、客户端。
  */
+@EnableLogging
 @SpringBootApplication
 public class ResourceServerApplication {
 
