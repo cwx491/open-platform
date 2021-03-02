@@ -12,13 +12,13 @@ public class UserController {
     @Autowired
     public UserService userService;
 
-    @RequestMapping(value = "/addUser",method = RequestMethod.POST)
-    public void addUser(@RequestBody User user){
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public void addUser(@RequestBody User user) {
         userService.save(user);
     }
 
     @GetMapping("/getUsers")
-    public String getUsers(){
+    public String getUsers() {
         return JSONObject.toJSONString(userService.findAll());
     }
 
